@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import React, { useState } from "react";
+import Counter from "./Counter";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 function App() {
+  const [counters, changeCounters] = useState([]);
+
+  const addCounter = () => {
+    // // counters.push(2);
+    changeCounters((prevState) => {
+      return [...prevState, 1];
+    });
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <Container>
+        <Button
+          variant="primary"
+          onClick={() => {
+            addCounter();
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          Add counter
+        </Button>
+        <Row className="counterRow justify-content-md-center">
+          {counters.map((value, index) => {
+            return (
+              <Col key={index}>
+                <Counter key={index} id={value} />
+              </Col>
+            );
+          })}
+        </Row>
+      </Container>
     </div>
   );
 }
