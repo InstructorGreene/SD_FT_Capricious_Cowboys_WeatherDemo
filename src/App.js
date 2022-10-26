@@ -1,43 +1,26 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import React, { useState } from "react";
-import Counter from "./Counter";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import CurrentDay from "./CurrentDay";
+
+import ForecastCards from "./ForecastCards";
 
 function App() {
-  const [counters, changeCounters] = useState([]);
+  const [forecastData, changeForecastData] = useState([
+    { day: "thursday", temp: 30, weather: "miserable" },
+    { day: "friday", temp: 30, weather: "apocalyptic" },
+    { day: "saturday", temp: 30, weather: "Nothingnes" },
+    { day: "sunday", temp: 30, weather: "Creatiion of all" },
+    { day: "monday", temp: 30, weather: "Grey and drizzly" },
+  ]);
 
-  const addCounter = () => {
-    // // counters.push(2);
-    changeCounters((prevState) => {
-      return [...prevState, 1];
-    });
-  };
-
+  // one for the current day
+  // the 5 day forecast
   return (
     <div className="App">
-      <Container>
-        <Button
-          variant="primary"
-          onClick={() => {
-            addCounter();
-          }}
-        >
-          Add counter
-        </Button>
-        <Row className="counterRow justify-content-md-center">
-          {counters.map((value, index) => {
-            return (
-              <Col key={index}>
-                <Counter key={index} id={value} />
-              </Col>
-            );
-          })}
-        </Row>
-      </Container>
+      <CurrentDay date={"Today"} id={12} />
+      <ForecastCards data={forecastData} />
+      <br />
     </div>
   );
 }
